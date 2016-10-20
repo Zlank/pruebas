@@ -1,24 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel='stylesheet' type='text/css' href='styles/estilo.css' />
         <meta charset="utf-8">
         <title>Recetas</title>
     </head>
     <body>
         <?php
-            $host        = "host=localhost";
-            $port        = "port=5432";
-            $dbname      = "dbname=recetas";
-            $credentials = "user=recetas password=recetas";
-
-            $db = pg_connect( "$host $port $dbname $credentials" );
-
-            if(!$db){
-                echo "Error : No se pudo conectar con la base de datos. \n";
-            } else {
-                echo "Se ha conectado con la base de datos. \n";
-            }
-
+            require 'connect.php';
 
             if(isset($_POST['nombre']) && isset($_POST['anyo'])) {
                 $nombre = $_POST['nombre'];
@@ -34,13 +23,17 @@
                     echo "Se inserto correctamente.";
                 }
             } ?>
+
         <h1>Recetas de cocina</h1><br/>
-        <form action="index.php" method="post">
-            <label>Nombre: </label><input type="text" name="nombre" /></br>
-            <label>Año: </label><input type="text" name="anyo" />
-            <input type="submit" value="Confirmar" />
-        </form><br/>
-        <table border="1" width="200">
+
+        <div>
+            <form action="index.php" method="post">
+                <label>Nombre: </label><input type="text" name="nombre" /></br>
+                <label>Año: </label><input type="text" name="anyo" />
+                <input type="submit" value="Confirmar" />
+            </form><br/>
+        </div>
+        <table border="1">
             <tr>
                 <th>Nombre</th>
                 <th>Año</th>
@@ -52,10 +45,10 @@
                 }
 
                 while ($row = pg_fetch_row($result)) {?>
-                <tr>
-                    <td><?= $row[0]; ?></td>
-                    <td><?= $row[1]; ?></td>
-                </tr><?php
+                    <tr>
+                        <td><?= $row[0]; ?></td>
+                        <td><?= $row[1]; ?></td>
+                    </tr><?php
                 } ?>
         </table>
     </body>
