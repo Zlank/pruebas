@@ -14,9 +14,9 @@
             $db = pg_connect( "$host $port $dbname $credentials" );
 
             if(!$db){
-                echo "Error : No se pudo conectar con la base de datos\n";
+                echo "Error : No se pudo conectar con la base de datos. \n";
             } else {
-                echo "Se ha conectado con la base de datos\n";
+                echo "Se ha conectado con la base de datos. \n";
             }
 
 
@@ -39,6 +39,24 @@
             <label>Nombre: </label><input type="text" name="nombre" /></br>
             <label>Año: </label><input type="text" name="anyo" />
             <input type="submit" value="Confirmar" />
-        </form>
+        </form><br/>
+        <table border="1" width="200">
+            <tr>
+                <th>Nombre</th>
+                <th>Año</th>
+            </tr>
+            <?php
+                $result = pg_query($db, "SELECT nombre, anyo FROM personas");
+                if (!$result) {
+                    echo "Ocurrió un error.\n";
+                }
+
+                while ($row = pg_fetch_row($result)) {?>
+                <tr>
+                    <td><?= $row[0]; ?></td>
+                    <td><?= $row[1]; ?></td>
+                </tr><?php
+                } ?>
+        </table>
     </body>
 </html>
