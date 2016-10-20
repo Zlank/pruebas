@@ -6,6 +6,7 @@
         <title>Recetas</title>
     </head>
     <body>
+        <script type="text/javascript" src="scripts/validaranyo.js"></script>
         <?php
             require 'connect.php';
 
@@ -27,9 +28,9 @@
         <h1>Recetas de cocina</h1><br/>
 
         <div>
-            <form action="index.php" method="post">
+            <form action="index.php" method="post" onsubmit="return validateAnyo(anyo);">
                 <label>Nombre: </label><input type="text" name="nombre" /></br>
-                <label>Año: </label><input type="text" name="anyo" />
+                <label>Año: </label><input type="text" name="anyo" id="anyo"/>
                 <input type="submit" value="Confirmar" />
             </form><br/>
         </div>
